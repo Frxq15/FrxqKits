@@ -1,0 +1,5 @@
+name: FrxqKits
+version: '${project.version}'
+main: me.frxq15.frxqkits.FrxqKits
+authors: [ Frxq15 ]
+description: KitsCore with upgrades
