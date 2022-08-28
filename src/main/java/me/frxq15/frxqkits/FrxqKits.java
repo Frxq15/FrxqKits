@@ -1,5 +1,7 @@
 package me.frxq15.frxqkits;
 
+import me.frxq15.frxqkits.command.createKitCommand;
+import me.frxq15.frxqkits.command.kitCommand;
 import me.frxq15.frxqkits.manager.FileManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -29,6 +31,9 @@ public final class FrxqKits extends JavaPlugin {
     public void initialize() {
         fileManager = new FileManager(this);
         getFileManager().createKitsFile();
+        getFileManager().createCooldownFile();
+        getCommand("createkit").setExecutor(new createKitCommand());
+        getCommand("kit").setExecutor(new kitCommand());
     }
     public static FrxqKits getInstance() { return instance; }
     public static String colourize(String input) {
@@ -41,10 +46,11 @@ public final class FrxqKits extends JavaPlugin {
         }
         return newList;
     }
-    public static void log(String str) { Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN+"[FrxqKits] "+str); }
+    public static void log(String str) { Bukkit.getConsoleSender().sendMessage(ChatColor.LIGHT_PURPLE+"[FrxqKits] "+str); }
     public static String formatMsg(String input) {  return ChatColor.translateAlternateColorCodes('&', getInstance().getConfig().getString(input)); }
 
     public FileManager getFileManager() {
         return fileManager;
     }
+
 }

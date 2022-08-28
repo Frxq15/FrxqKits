@@ -43,11 +43,11 @@ public class FileManager {
     }
     public FileConfiguration getKitsFile() { return KitsConfig; }
     public void createCooldownFile() {
-        CooldownFile = new File(plugin.getInstance().getDataFolder(), "cooldown.yml");
+        CooldownFile = new File(plugin.getInstance().getDataFolder(), "cooldowns.yml");
         if (!CooldownFile.exists()) {
             CooldownFile.getParentFile().mkdirs();
-            plugin.log("cooldown.yml was created successfully");
-            plugin.getInstance().saveResource("cooldown.yml", false);
+            plugin.log("cooldowns.yml was created successfully");
+            plugin.getInstance().saveResource("cooldowns.yml", false);
         }
 
         CooldownConfig = new YamlConfiguration();

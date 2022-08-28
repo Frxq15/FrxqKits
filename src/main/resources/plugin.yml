@@ -3,3 +3,9 @@ version: '${project.version}'
 main: me.frxq15.frxqkits.FrxqKits
 authors: [ Frxq15 ]
 description: KitsCore with upgrades
+
+commands:
+  createkit:
+    usage: /createkit <kit> <cooldown>
+  kit:
+    usage: /kit <kit>
