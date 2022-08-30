@@ -2,6 +2,8 @@ package me.frxq15.frxqkits;
 
 import me.frxq15.frxqkits.command.createKitCommand;
 import me.frxq15.frxqkits.command.kitCommand;
+import me.frxq15.frxqkits.command.previewKitCommand;
+import me.frxq15.frxqkits.gui.GUIListeners;
 import me.frxq15.frxqkits.manager.FileManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -34,6 +36,8 @@ public final class FrxqKits extends JavaPlugin {
         getFileManager().createCooldownFile();
         getCommand("createkit").setExecutor(new createKitCommand());
         getCommand("kit").setExecutor(new kitCommand());
+        getCommand("previewkit").setExecutor(new previewKitCommand());
+        Bukkit.getPluginManager().registerEvents(new GUIListeners(), this);
     }
     public static FrxqKits getInstance() { return instance; }
     public static String colourize(String input) {

@@ -9,3 +9,5 @@ commands:
     usage: /createkit <kit> <cooldown>
   kit:
     usage: /kit <kit>
+  previewkit:
+    usage: /previewkit <kit>

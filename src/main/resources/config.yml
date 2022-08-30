@@ -6,3 +6,51 @@ KIT_CREATED: "&f[&dKits&f] &7You created the kit &d%kit% &7with a &d%cooldown% &
 KIT_NOT_FOUND: "&f[&dKits&f] &7The kit &d%kit% &7does not exist."
 KIT_RECEIVED: "&7Received kit &d%kit%&7."
 KIT_GIVEN: "&f[&dKits&f] &7Given kit &d%kit% &7to &d%player%&7."
+
+
+GUIS:
+  KIT_GUI:
+    TITLE: "&dServer Kits"
+    ROWS: 5
+    ITEMS:
+      1:
+        SLOT: 0
+        UNLOCKED:
+          MATERIAL: STONE_SWORD
+          AMOUNT: 1
+          NAME: "&cDefault Kit"
+          KIT: "DEFAULT"
+          GLOW: false
+          LORE:
+            - "&aYou have unlocked this kit."
+            - ""
+            - "&dRight-Click &7to preview kit"
+            - "&dMiddle-Click to upgrade kit"
+            - ""
+            - "&7&o (( &f&oLeft-Click &7&oto select this kit ))"
+        LOCKED:
+          MATERIAL: STONE_SWORD
+          AMOUNT: 1
+          NAME: "&cDefault Kit"
+          KIT: "DEFAULT"
+          GLOW: false
+          LORE:
+            - "&cYou have not unlocked this kit."
+            - ""
+            - "&dRight-Click &7to preview kit"
+            - "&dMiddle-Click to upgrade kit"
+            - ""
+            - "&7&o (( &f&oLeft-Click &7&oto select this kit ))"
+  PREVIEW_GUI:
+    TITLE: "&f&nPreviewing:&d %kit%"
+    ROWS: 5
+    ITEMS:
+      1:
+        SLOT: 40
+        IS_BACK_ITEM: true
+        MATERIAL: ARROW
+        AMOUNT: 1
+        NAME: "&cReturn"
+        GLOW: false
+        LORE:
+          - "&7Click to go back to the kits menu."
