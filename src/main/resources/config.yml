@@ -6,6 +6,7 @@ KIT_CREATED: "&f[&dKits&f] &7You created the kit &d%kit% &7with a &d%cooldown% &
 KIT_NOT_FOUND: "&f[&dKits&f] &7The kit &d%kit% &7does not exist."
 KIT_RECEIVED: "&7Received kit &d%kit%&7."
 KIT_GIVEN: "&f[&dKits&f] &7Given kit &d%kit% &7to &d%player%&7."
+KIT_ON_COOLDOWN: "&7This kit is on cooldown for another &d%cooldown%&7."
 
 
 GUIS:
@@ -15,17 +16,18 @@ GUIS:
     ITEMS:
       1:
         SLOT: 0
+        KIT_NAME: "DEFAULT" #this is used for permission checks so please keep this to the appropriate kit name
         UNLOCKED:
           MATERIAL: STONE_SWORD
           AMOUNT: 1
           NAME: "&cDefault Kit"
           KIT: "DEFAULT"
-          GLOW: false
+          GLOW: true
           LORE:
             - "&aYou have unlocked this kit."
             - ""
             - "&dRight-Click &7to preview kit"
-            - "&dMiddle-Click to upgrade kit"
+            - "&dMiddle-Click &7to upgrade kit"
             - ""
             - "&7&o (( &f&oLeft-Click &7&oto select this kit ))"
         LOCKED:
@@ -38,9 +40,9 @@ GUIS:
             - "&cYou have not unlocked this kit."
             - ""
             - "&dRight-Click &7to preview kit"
-            - "&dMiddle-Click to upgrade kit"
+            - "&dMiddle-Click &7to upgrade kit"
             - ""
-            - "&7&o (( &f&oLeft-Click &7&oto select this kit ))"
+            - "&7&o (( &f&oLeft-Click &7&oto purchase this kit ))"
   PREVIEW_GUI:
     TITLE: "&f&nPreviewing:&d %kit%"
     ROWS: 5

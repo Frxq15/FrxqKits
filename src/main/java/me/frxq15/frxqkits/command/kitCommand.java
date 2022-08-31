@@ -1,6 +1,7 @@
 package me.frxq15.frxqkits.command;
 
 import me.frxq15.frxqkits.FrxqKits;
+import me.frxq15.frxqkits.gui.menus.KitMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -22,7 +23,8 @@ public class kitCommand implements CommandExecutor {
                 FrxqKits.log("This command cannot be executed from console.");
                 return true;
             }
-            //open gui
+            Player p = (Player) s;
+            new KitMenu(FrxqKits.getInstance(), p).open(p);
             return true;
         }
         if(args.length == 1) {
@@ -36,9 +38,18 @@ public class kitCommand implements CommandExecutor {
                 s.sendMessage(FrxqKits.formatMsg("KIT_NOT_FOUND").replace("%kit%", kit));
                 return true;
             }
-            int cooldown = file.getInt(kit.toUpperCase()+".COOLDOWN");
-            long c = cooldown;
-            FrxqKits.getInstance().getFileManager().getCooldownFile().set(p.getName() + "."+kit.toUpperCase(), c);
+            long getpc = 0;
+            if(FrxqKits.getInstance().getFileManager().getCooldownFile().get(p.getName()+"."+kit.toUpperCase()) != null) {
+                getpc = FrxqKits.getInstance().getFileManager().getCooldownFile().getLong(p.getName() + "."+kit.toUpperCase());
+            }
+            long current = System.currentTimeMillis();
+            long c = file.getLong(kit.toUpperCase()+".COOLDOWN") * 1000;
+            if(current <= getpc) {
+                p.sendMessage(FrxqKits.formatMsg("KIT_ON_COOLDOWN")
+                        .replace("%cooldown%", FrxqKits.getInstance().getCooldownManager().getPrettyTime((getpc - current))+""));
+                return true;
+            }
+            FrxqKits.getInstance().getFileManager().getCooldownFile().set(p.getName() + "."+kit.toUpperCase(), (c+current));
             FrxqKits.getInstance().getFileManager().saveCooldownFile();
 
             if(file.getBoolean(kit.toUpperCase()+".GIVE_BY_SLOT")) {

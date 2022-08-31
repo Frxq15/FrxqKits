@@ -4,6 +4,7 @@ import me.frxq15.frxqkits.command.createKitCommand;
 import me.frxq15.frxqkits.command.kitCommand;
 import me.frxq15.frxqkits.command.previewKitCommand;
 import me.frxq15.frxqkits.gui.GUIListeners;
+import me.frxq15.frxqkits.manager.CooldownManager;
 import me.frxq15.frxqkits.manager.FileManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -16,6 +17,7 @@ import java.util.List;
 public final class FrxqKits extends JavaPlugin {
     private static FrxqKits instance;
     public FileManager fileManager;
+    public CooldownManager cooldownManager;
 
     @Override
     public void onEnable() {
@@ -32,6 +34,7 @@ public final class FrxqKits extends JavaPlugin {
     }
     public void initialize() {
         fileManager = new FileManager(this);
+        cooldownManager = new CooldownManager();
         getFileManager().createKitsFile();
         getFileManager().createCooldownFile();
         getCommand("createkit").setExecutor(new createKitCommand());
@@ -56,5 +59,6 @@ public final class FrxqKits extends JavaPlugin {
     public FileManager getFileManager() {
         return fileManager;
     }
+    public CooldownManager getCooldownManager() { return cooldownManager; }
 
 }

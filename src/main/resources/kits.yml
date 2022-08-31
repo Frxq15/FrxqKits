@@ -1,5 +1,5 @@
 DEFAULT:
-  COOLDOWN: 1000
+  COOLDOWN: 60
   GIVE_BY_SLOT: false
   ITEMS:
     '0':
