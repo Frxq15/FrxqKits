@@ -5,6 +5,7 @@ import me.frxq15.frxqkits.gui.menus.PreviewKit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -29,7 +30,7 @@ public class GUIListeners implements Listener {
         }
     }
     @EventHandler
-    public void onInventoryClick2(InventoryClickEvent e) {
+    public void kitmenu(InventoryClickEvent e) {
         if (!(e.getWhoClicked() instanceof Player)) return;
         Player player = (Player) e.getWhoClicked();
         UUID playerUUID = player.getUniqueId();
@@ -37,10 +38,26 @@ public class GUIListeners implements Listener {
         if (inventoryUUID != null) {
             e.setCancelled(true);
             GUITemplate gui = GUITemplate.getInventoriesByUUID().get(inventoryUUID);
-            KitMenu.GUIAction action = gui.getActions().get(e.getSlot());
+            KitMenu.GUIAction left_action = gui.getLeftActions().get(e.getSlot());
+            KitMenu.GUIAction right_action = gui.getRightActions().get(e.getSlot());
+            KitMenu.GUIAction middle_action = gui.getMiddleActions().get(e.getSlot());
             if(e.getClickedInventory() != player.getOpenInventory().getTopInventory()) return;
-            if (action != null) {
-                action.click(player);
+            if(e.isLeftClick()) {
+                if (left_action != null) {
+                    left_action.click(player);
+                    return;
+                }
+            }
+            if(e.isRightClick()) {
+                if (right_action != null) {
+                    right_action.click(player);
+                    return;
+                }
+            }
+            if(e.getClick().equals(ClickType.MIDDLE)) {
+                if (middle_action != null) {
+                    middle_action.click(player);
+                }
             }
         }
     }

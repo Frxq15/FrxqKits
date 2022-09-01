@@ -24,18 +24,35 @@ public class KitMenu extends GUITemplate {
         initialize();
     }
     public void initialize() {
-        plugin.getConfig().getConfigurationSection("GUIS.KIT_GUI.ITEMS").getKeys(false).forEach(item -> {
-            int slot = plugin.getConfig().getInt("GUIS.KIT_GUI.ITEMS."+item+".SLOT");
-            String kit = plugin.getConfig().getString("GUIS.KIT_GUI.ITEMS."+item+".KIT_NAME");
-            String k1 = kit.substring(0, 1).toUpperCase();
-            String nameCapitalized = k1 + kit.substring(1);
-                if(p.hasPermission("frxqkits.kit."+kit)) {
-                    setItem(slot, createItem(item, nameCapitalized, "UNLOCKED"));
-                }
-            if(!p.hasPermission("frxqkits.kit."+kit)) {
-                setItem(slot, createItem(item, nameCapitalized, "LOCKED"));
+        for (String item : plugin.getConfig().getConfigurationSection("GUIS.KIT_GUI.ITEMS").getKeys(false)) {
+            int slot = plugin.getConfig().getInt("GUIS.KIT_GUI.ITEMS." + item + ".SLOT");
+            String kit = plugin.getConfig().getString("GUIS.KIT_GUI.ITEMS." + item + ".KIT_NAME").toLowerCase();
+            String nameCapitalized = kit.substring(0, 1).toUpperCase() + kit.substring(1);
+            if (p.hasPermission("frxqkits.kit." + kit)) {
+                setItem(slot, createItem(item, nameCapitalized, "UNLOCKED"));
+                setLeftActions(slot, l -> {
+                    l.getOpenInventory().close();
+                    FrxqKits.getInstance().getKitManager().selectKit(p, nameCapitalized);
+                });
+                setMiddleActions(slot, m -> {
+                    m.getOpenInventory().close();
+                    Bukkit.broadcastMessage("upgrade kit");
+                });
+                setRightActions(slot, r -> {
+                    new PreviewKit(FrxqKits.getInstance(), r, nameCapitalized).open(p);
+                });
             }
-        });
+            if (!p.hasPermission("frxqkits.kit." + kit)) {
+                setItem(slot, createItem(item, nameCapitalized, "LOCKED"));
+                setMiddleActions(slot, m -> {
+                    m.getOpenInventory().close();
+                    Bukkit.broadcastMessage("purchase kit");
+                });
+                setRightActions(slot, r-> {
+                    new PreviewKit(FrxqKits.getInstance(), r, nameCapitalized).open(p);
+                });
+            }
+        }
     }
     public boolean hasGlow(String item, String status) {
         return plugin.getConfig().getBoolean("GUIS.KIT_GUI.ITEMS."+item+"."+status.toUpperCase()+".GLOW");

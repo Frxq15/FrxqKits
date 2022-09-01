@@ -23,6 +23,9 @@ public class GUITemplate {
 
     private final Inventory inventory;
     private Map<Integer, GUIAction> actions;
+    private Map<Integer, GUIAction> left_actions;
+    private Map<Integer, GUIAction> right_actions;
+    private Map<Integer, GUIAction> middle_actions;
     private UUID uuid;
 
     public GUITemplate(FrxqKits plugin, int rows, String title) {
@@ -32,6 +35,9 @@ public class GUITemplate {
         this.title = title;
         inventory = Bukkit.createInventory(null, 9 * rows, FrxqKits.colourize(title));
         actions = new HashMap<>();
+        left_actions = new HashMap<>();
+        right_actions = new HashMap<>();
+        middle_actions = new HashMap<>();
         inventoriesByUUID.put(getUUID(), this);
     }
 
@@ -68,11 +74,41 @@ public class GUITemplate {
     public Map<Integer, GUIAction> getActions() {
         return actions;
     }
+    public Map<Integer, GUIAction> getLeftActions() { return left_actions; }
+    public Map<Integer, GUIAction> getRightActions() { return right_actions; }
+    public Map<Integer, GUIAction> getMiddleActions() { return middle_actions; }
 
     public void setItem(int slot, ItemStack stack, GUIAction action) {
         inventory.setItem(slot, stack);
         if (action != null) {
             actions.put(slot, action);
+        }
+    }
+    public void setKitItem(int slot, ItemStack stack, GUIAction left_action, GUIAction right_action, GUIAction middle_action) {
+        inventory.setItem(slot, stack);
+        if (left_action != null) {
+            left_actions.put(slot, left_action);
+        }
+        if (right_action != null) {
+            right_actions.put(slot, right_action);
+        }
+        if (middle_action != null) {
+            middle_actions.put(slot, middle_action);
+        }
+    }
+    public void setLeftActions(int slot, GUIAction left_action) {
+        if (left_action != null) {
+            left_actions.put(slot, left_action);
+        }
+    }
+    public void setRightActions(int slot, GUIAction right_action) {
+        if (right_action != null) {
+            right_actions.put(slot, right_action);
+        }
+    }
+    public void setMiddleActions(int slot, GUIAction middle_action) {
+        if (middle_action != null) {
+            middle_actions.put(slot, middle_action);
         }
     }
 

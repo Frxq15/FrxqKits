@@ -35,7 +35,7 @@ public class kitCommand implements CommandExecutor {
             Player p = (Player) s;
             String kit = args[0];
             if(!file.isConfigurationSection(kit.toUpperCase())) {
-                s.sendMessage(FrxqKits.formatMsg("KIT_NOT_FOUND").replace("%kit%", kit));
+                s.sendMessage(FrxqKits.formatMsg("KIT_NOT_FOUND").replace("%kit%", kit.substring(0, 1).toUpperCase() + kit.substring(1)));
                 return true;
             }
             long getpc = 0;
@@ -63,7 +63,7 @@ public class kitCommand implements CommandExecutor {
                 ItemStack item = file.getItemStack(kit.toUpperCase()+".ITEMS."+slot);
                 p.getInventory().addItem(item);
             });
-            s.sendMessage(FrxqKits.formatMsg("KIT_RECEIVED").replace("%kit%", kit));
+            s.sendMessage(FrxqKits.formatMsg("KIT_RECEIVED").replace("%kit%", kit.substring(0, 1).toUpperCase() + kit.substring(1)));
             return true;
         }
         if(args.length == 2) {
@@ -89,7 +89,8 @@ public class kitCommand implements CommandExecutor {
                 ItemStack item = file.getItemStack(kit.toUpperCase()+".ITEMS."+slot);
                 p.getInventory().addItem(item);
             });
-            s.sendMessage(FrxqKits.formatMsg("KIT_GIVEN").replace("%kit%", kit).replace("%player%", p.getName()));
+            s.sendMessage(FrxqKits.formatMsg("KIT_GIVEN")
+                    .replace("%kit%", kit.substring(0, 1).toUpperCase() + kit.substring(1)).replace("%player%", p.getName()));
             return true;
         }
         if(!(s instanceof Player)) {
