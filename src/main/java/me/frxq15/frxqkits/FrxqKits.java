@@ -1,5 +1,6 @@
 package me.frxq15.frxqkits;
 
+import me.frxq15.frxqkits.api.APIManager;
 import me.frxq15.frxqkits.command.createKitCommand;
 import me.frxq15.frxqkits.command.kitCommand;
 import me.frxq15.frxqkits.command.previewKitCommand;
@@ -20,6 +21,7 @@ public final class FrxqKits extends JavaPlugin {
     public FileManager fileManager;
     public CooldownManager cooldownManager;
     public KitManager kitManager;
+    public APIManager apiManager;
 
     @Override
     public void onEnable() {
@@ -32,18 +34,22 @@ public final class FrxqKits extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        log("Plugin disabled.");
         // Plugin shutdown logic
     }
     public void initialize() {
         fileManager = new FileManager(this);
         cooldownManager = new CooldownManager();
         kitManager = new KitManager();
+        apiManager = new APIManager();
         getFileManager().createKitsFile();
         getFileManager().createCooldownFile();
+        getApiManager().runSetup();
         getCommand("createkit").setExecutor(new createKitCommand());
         getCommand("kit").setExecutor(new kitCommand());
         getCommand("previewkit").setExecutor(new previewKitCommand());
         Bukkit.getPluginManager().registerEvents(new GUIListeners(), this);
+        log("Plugin enabled successfully.");
     }
     public static FrxqKits getInstance() { return instance; }
     public static String colourize(String input) {
@@ -64,5 +70,6 @@ public final class FrxqKits extends JavaPlugin {
     }
     public CooldownManager getCooldownManager() { return cooldownManager; }
     public KitManager getKitManager() { return kitManager; }
+    public APIManager getApiManager() { return apiManager; }
 
 }

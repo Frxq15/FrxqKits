@@ -44,9 +44,15 @@ public class KitMenu extends GUITemplate {
             }
             if (!p.hasPermission("frxqkits.kit." + kit)) {
                 setItem(slot, createItem(item, nameCapitalized, "LOCKED"));
-                setMiddleActions(slot, m -> {
-                    m.getOpenInventory().close();
-                    Bukkit.broadcastMessage("purchase kit");
+                setLeftActions(slot, l -> {
+                    l.getOpenInventory().close();
+                    if(FrxqKits.getInstance().getApiManager().getEconomy().getBalance(l) <
+                            plugin.getConfig().getInt("GUIS.KIT_GUI.ITEMS."+item+"."+".PURCHASE_COST")) {
+                        l.sendMessage(FrxqKits.formatMsg("CANNOT_AFFORD_KIT")
+                                .replace("%cost%", plugin.getConfig().getInt("GUIS.KIT_GUI.ITEMS."+item+"."+".PURCHASE_COST")+""));
+                        return;
+                    }
+                    new PurchaseMenu(FrxqKits.getInstance(), l, nameCapitalized).open(l);
                 });
                 setRightActions(slot, r-> {
                     new PreviewKit(FrxqKits.getInstance(), r, nameCapitalized).open(p);
@@ -61,13 +67,15 @@ public class KitMenu extends GUITemplate {
         //normal item creation
         List<String> lore = new ArrayList<String>();
         String material = plugin.getConfig().getString("GUIS.KIT_GUI.ITEMS."+item+"."+status.toUpperCase()+".MATERIAL");
+        String description = plugin.getConfig().getString("GUIS.KIT_GUI.ITEMS."+item+"."+status.toUpperCase()+".DESCRIPTION");
+        int cost = plugin.getConfig().getInt("GUIS.KIT_GUI.ITEMS."+item+"."+".PURCHASE_COST");
         Integer amount = plugin.getConfig().getInt("GUIS.KIT_GUI.ITEMS."+item+"."+status.toUpperCase()+".AMOUNT");
         final ItemStack i = new ItemStack(Material.valueOf(material), amount);
         String name = plugin.getConfig().getString("GUIS.KIT_GUI.ITEMS."+item+"."+status.toUpperCase()+".NAME");
 
         final ItemMeta meta = i.getItemMeta();
         for (String lines : plugin.getConfig().getStringList("GUIS.KIT_GUI.ITEMS."+item+"."+status.toUpperCase()+".LORE")) {
-            lines = lines.replace("%kit%", kit);
+            lines = lines.replace("%kit%", kit).replace("%description%", description).replace("%cost%", cost+"");
             lore.add(FrxqKits.colourize(lines));
         }
         meta.setDisplayName(FrxqKits.colourize(name));

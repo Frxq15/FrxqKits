@@ -2,6 +2,7 @@ package me.frxq15.frxqkits.gui;
 
 import me.frxq15.frxqkits.gui.menus.KitMenu;
 import me.frxq15.frxqkits.gui.menus.PreviewKit;
+import me.frxq15.frxqkits.gui.menus.PurchaseMenu;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,6 +24,22 @@ public class GUIListeners implements Listener {
             e.setCancelled(true);
             GUITemplate gui = GUITemplate.getInventoriesByUUID().get(inventoryUUID);
             PreviewKit.GUIAction action = gui.getActions().get(e.getSlot());
+            if(e.getClickedInventory() != player.getOpenInventory().getTopInventory()) return;
+            if (action != null) {
+                action.click(player);
+            }
+        }
+    }
+    @EventHandler
+    public void onPurchaseClick(InventoryClickEvent e) {
+        if (!(e.getWhoClicked() instanceof Player)) return;
+        Player player = (Player) e.getWhoClicked();
+        UUID playerUUID = player.getUniqueId();
+        UUID inventoryUUID = PurchaseMenu.openInventories.get(playerUUID);
+        if (inventoryUUID != null) {
+            e.setCancelled(true);
+            GUITemplate gui = GUITemplate.getInventoriesByUUID().get(inventoryUUID);
+            PurchaseMenu.GUIAction action = gui.getActions().get(e.getSlot());
             if(e.getClickedInventory() != player.getOpenInventory().getTopInventory()) return;
             if (action != null) {
                 action.click(player);
@@ -75,6 +92,11 @@ public class GUIListeners implements Listener {
             KitMenu.openInventories.remove(playerUUID);
             return;
         }
+        UUID inventoryUUID3 = PurchaseMenu.openInventories.get(playerUUID);
+        if (inventoryUUID3 != null) {
+            PurchaseMenu.openInventories.remove(playerUUID);
+            return;
+        }
     }
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
@@ -85,6 +107,9 @@ public class GUIListeners implements Listener {
         }
         if(KitMenu.openInventories.containsKey(playerUUID)) {
             KitMenu.openInventories.remove(playerUUID);
+        }
+        if(PurchaseMenu.openInventories.containsKey(playerUUID)) {
+            PurchaseMenu.openInventories.remove(playerUUID);
         }
     }
 }

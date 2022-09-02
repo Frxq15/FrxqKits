@@ -6,7 +6,12 @@ KIT_CREATED: "&f[&dKits&f] &7You created the kit &d%kit% &7with a &d%cooldown% &
 KIT_NOT_FOUND: "&f[&dKits&f] &7The kit &d%kit% &7does not exist."
 KIT_RECEIVED: "&7Received kit &d%kit%&7."
 KIT_GIVEN: "&f[&dKits&f] &7Given kit &d%kit% &7to &d%player%&7."
-KIT_ON_COOLDOWN: "&7This kit is on cooldown for another &d%cooldown%&7."
+KIT_ON_COOLDOWN: "&f[&dKits&f] &7This kit is on cooldown for another &d%cooldown%&7."
+KIT_PURCHASED: "&f[&dKits&f] &7You purchased the &d%kit% &7kit for &d$%cost%&7."
+CANNOT_AFFORD_KIT: "&f[&dKits&f] &7You need &d$%cost% &7to purchase this kit."
+
+
+ADD_KIT_COMMAND: "lp user %player% permission set frxqkits.kit.%kit% true"
 
 
 GUIS:
@@ -14,7 +19,8 @@ GUIS:
     TITLE: "&dServer Kits"
     ROWS: 5
     ITEMS:
-      1:
+      DEFAULT:
+        PURCHASE_COST: 100
         SLOT: 0
         KIT_NAME: "DEFAULT" #this is used for permission checks so please keep this to the appropriate kit name
         UNLOCKED:
@@ -22,9 +28,12 @@ GUIS:
           AMOUNT: 1
           NAME: "&cDefault Kit"
           KIT: "DEFAULT"
+          DESCRIPTION: "&7Slay those before you with this kit."
           GLOW: true
           LORE:
             - "&aYou have unlocked this kit."
+            - ""
+            - "&7%description%"
             - ""
             - "&dRight-Click &7to preview kit"
             - "&dMiddle-Click &7to upgrade kit"
@@ -35,14 +44,19 @@ GUIS:
           AMOUNT: 1
           NAME: "&cDefault Kit"
           KIT: "DEFAULT"
+          DESCRIPTION: "&7Slay those before you with this kit."
           GLOW: false
           LORE:
             - "&cYou have not unlocked this kit."
             - ""
-            - "&dRight-Click &7to preview kit"
-            - "&dMiddle-Click &7to upgrade kit"
+            - "&7%description%"
             - ""
-            - "&7&o (( &f&oLeft-Click &7&oto purchase this kit ))"
+            - "&d&l ┃ &7Cost: &d$%cost%"
+            - ""
+            - "&d&l ┃ &dRight-Click &7to preview kit"
+            - "&d&l ┃ &dLeft-Click &7to purchase kit."
+            - ""
+            - "&7Left-Click to purchase this kit."
   PREVIEW_GUI:
     TITLE: "&f&nPreviewing:&d %kit%"
     ROWS: 5
@@ -56,3 +70,55 @@ GUIS:
         GLOW: false
         LORE:
           - "&7Click to go back to the kits menu."
+  PURCHASE_GUI:
+    TITLE: "&f&nPurchasing:&d %kit%"
+    ROWS: 1
+    ITEMS:
+      KIT:
+        MATERIAL: "%kititem%"
+        AMOUNT: 1
+        NAME: "%kitname%"
+        GLOW: false
+        SLOT: 4
+        LORE:
+          - ""
+          - "&7%description%"
+          - ""
+          - "&d&l ┃ &7Kit: &d%kit%"
+          - "&d&l ┃ &7Cost: &d$%cost%"
+          - ""
+          - "&7Click to confirm this purchase."
+      CONFIRM:
+        MATERIAL: STAINED_GLASS_PANE
+        DATA: 5
+        AMOUNT: 1
+        NAME: "&aConfirm Purchase"
+        GLOW: false
+        LORE:
+          - ""
+          - "&f&oThis will confirm your purchase of this kit."
+          - ""
+          - "&d&l ┃ &7Kit: &d%kit%"
+          - "&d&l ┃ &7Duration: &cPermanent"
+          - ""
+          - "&c&lNote: &fThis purchase cannot be reversed."
+          - ""
+          - "&7Click to confirm this purchase."
+        SLOTS:
+          - 0
+          - 1
+          - 2
+          - 3
+      CANCEL:
+        MATERIAL: STAINED_GLASS_PANE
+        DATA: 14
+        AMOUNT: 1
+        NAME: "&cCancel Purchase"
+        GLOW: false
+        LORE:
+          - "&7Click to cancel this purchase."
+        SLOTS:
+          - 5
+          - 6
+          - 7
+          - 8
