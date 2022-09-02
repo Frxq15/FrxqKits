@@ -6,11 +6,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class kitCommand implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class kitCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender s, Command command, String label, String[] args) {
         if(!s.hasPermission("frxqkits.createkit")) {
@@ -99,5 +103,27 @@ public class kitCommand implements CommandExecutor {
         }
         s.sendMessage(FrxqKits.colourize("&cUsage: /kit <kit>"));
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        List<String> completions = new ArrayList<>();
+        if(args.length == 1) {
+            FrxqKits.getInstance().getFileManager().getKitsFile().getKeys(false).forEach(kit -> {
+                if(sender.hasPermission("frxqkits.kit."+kit.toLowerCase())) {
+                    kit = kit.toLowerCase();
+                    String newKit = kit.substring(0, 1).toUpperCase() + kit.substring(1);
+                    completions.add(newKit);
+                }
+            });
+            return completions;
+        }
+        if(args.length == 2) {
+            Bukkit.getOnlinePlayers().forEach(player -> {
+                completions.add(player.getName());
+            });
+            return completions;
+        }
+        return null;
     }
 }

@@ -5,9 +5,13 @@ import me.frxq15.frxqkits.gui.menus.PreviewKit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-public class previewKitCommand implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class previewKitCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!(sender instanceof Player)) {
@@ -32,5 +36,21 @@ public class previewKitCommand implements CommandExecutor {
         }
         p.sendMessage(FrxqKits.colourize("&cUsage: /previewkit <kit>"));
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        List<String> completions = new ArrayList<>();
+        if (args.length == 1) {
+            FrxqKits.getInstance().getFileManager().getKitsFile().getKeys(false).forEach(kit -> {
+                if (sender.hasPermission("frxqkits.kit." + kit.toLowerCase())) {
+                    kit = kit.toLowerCase();
+                    String newKit = kit.substring(0, 1).toUpperCase() + kit.substring(1);
+                    completions.add(newKit);
+                }
+            });
+            return completions;
+        }
+        return null;
     }
 }

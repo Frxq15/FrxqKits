@@ -47,7 +47,9 @@ public final class FrxqKits extends JavaPlugin {
         getApiManager().runSetup();
         getCommand("createkit").setExecutor(new createKitCommand());
         getCommand("kit").setExecutor(new kitCommand());
+        getCommand("kit").setTabCompleter(new kitCommand());
         getCommand("previewkit").setExecutor(new previewKitCommand());
+        getCommand("previewkit").setTabCompleter(new previewKitCommand());
         Bukkit.getPluginManager().registerEvents(new GUIListeners(), this);
         log("Plugin enabled successfully.");
     }
