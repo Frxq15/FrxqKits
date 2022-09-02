@@ -9,6 +9,7 @@ KIT_GIVEN: "&f[&dKits&f] &7Given kit &d%kit% &7to &d%player%&7."
 KIT_ON_COOLDOWN: "&f[&dKits&f] &7This kit is on cooldown for another &d%cooldown%&7."
 KIT_PURCHASED: "&f[&dKits&f] &7You purchased the &d%kit% &7kit for &d$%cost%&7."
 CANNOT_AFFORD_KIT: "&f[&dKits&f] &7You need &d$%cost% &7to purchase this kit."
+INVALID_NUMBER_SPECIFIED: "&f[&dKits&f] &7Please enter a valid number."
 
 
 ADD_KIT_COMMAND: "lp user %player% permission set frxqkits.kit.%kit% true"
@@ -36,7 +37,7 @@ GUIS:
             - "&7%description%"
             - ""
             - "&dRight-Click &7to preview kit"
-            - "&dMiddle-Click &7to upgrade kit"
+            - "&dLeft-Click &7to select kit"
             - ""
             - "&7&o (( &f&oLeft-Click &7&oto select this kit ))"
         LOCKED:

@@ -14,6 +14,8 @@ public class FileManager {
     public FileConfiguration KitsConfig;
     public File CooldownFile;
     public FileConfiguration CooldownConfig;
+    public File UpgradesFile;
+    public FileConfiguration UpgradesConfig;
     public FileManager(FrxqKits plugin) {
         this.plugin = plugin;
     }
@@ -66,4 +68,28 @@ public class FileManager {
         }
     }
     public FileConfiguration getCooldownFile() { return CooldownConfig; }
+    public void createUpgradesFile() {
+        UpgradesFile = new File(plugin.getInstance().getDataFolder(), "upgrades.yml");
+        if (!UpgradesFile.exists()) {
+            UpgradesFile.getParentFile().mkdirs();
+            plugin.log("Upgradess.yml was created successfully");
+            plugin.getInstance().saveResource("upgrades.yml", false);
+        }
+
+        UpgradesConfig = new YamlConfiguration();
+        try {
+            UpgradesConfig.load(UpgradesFile);
+        } catch (IOException | InvalidConfigurationException e) {
+            e.printStackTrace();
+        }
+    }
+    public void reloadUpgradesFile() { UpgradesConfig = YamlConfiguration.loadConfiguration(UpgradesFile); }
+    public void saveUpgradesFile() {
+        try {
+            UpgradesConfig.save(UpgradesFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public FileConfiguration getUpgradesFile() { return UpgradesConfig; }
 }

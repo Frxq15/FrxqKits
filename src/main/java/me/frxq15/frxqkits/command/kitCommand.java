@@ -48,7 +48,7 @@ public class kitCommand implements CommandExecutor, TabCompleter {
             }
             long current = System.currentTimeMillis();
             long c = file.getLong(kit.toUpperCase()+".COOLDOWN") * 1000;
-            if(current <= getpc) {
+            if((current <= getpc &&(!p.hasPermission("frxqkits.cooldownbypass")))) {
                 p.sendMessage(FrxqKits.formatMsg("KIT_ON_COOLDOWN")
                         .replace("%cooldown%", FrxqKits.getInstance().getCooldownManager().getPrettyTime((getpc - current))+""));
                 return true;

@@ -34,10 +34,6 @@ public class KitMenu extends GUITemplate {
                     l.getOpenInventory().close();
                     FrxqKits.getInstance().getKitManager().selectKit(p, nameCapitalized);
                 });
-                setMiddleActions(slot, m -> {
-                    m.getOpenInventory().close();
-                    Bukkit.broadcastMessage("upgrade kit");
-                });
                 setRightActions(slot, r -> {
                     new PreviewKit(FrxqKits.getInstance(), r, nameCapitalized).open(p);
                 });
