@@ -11,3 +11,5 @@ commands:
     usage: /kit <kit>
   previewkit:
     usage: /previewkit <kit>
+  deletekit:
+    usage: /deletekit <kit>

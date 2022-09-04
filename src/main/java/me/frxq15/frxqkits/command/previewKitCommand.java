@@ -29,8 +29,7 @@ public class previewKitCommand implements CommandExecutor, TabCompleter {
                 p.sendMessage(FrxqKits.formatMsg("KIT_NOT_FOUND").replace("%kit%", kit));
                 return true;
             }
-            String k1 = kit.substring(0, 1).toUpperCase();
-            String nameCapitalized = k1 + kit.substring(1);
+            String nameCapitalized = kit.substring(0, 1).toUpperCase() + kit.substring(1);
             new PreviewKit(FrxqKits.getInstance(), p, nameCapitalized).open(p);
             return true;
         }

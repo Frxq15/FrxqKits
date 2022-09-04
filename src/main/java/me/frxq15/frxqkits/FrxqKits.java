@@ -2,6 +2,7 @@ package me.frxq15.frxqkits;
 
 import me.frxq15.frxqkits.api.APIManager;
 import me.frxq15.frxqkits.command.createKitCommand;
+import me.frxq15.frxqkits.command.deleteKitCommand;
 import me.frxq15.frxqkits.command.kitCommand;
 import me.frxq15.frxqkits.command.previewKitCommand;
 import me.frxq15.frxqkits.gui.GUIListeners;
@@ -50,6 +51,8 @@ public final class FrxqKits extends JavaPlugin {
         getCommand("kit").setTabCompleter(new kitCommand());
         getCommand("previewkit").setExecutor(new previewKitCommand());
         getCommand("previewkit").setTabCompleter(new previewKitCommand());
+        getCommand("deletekit").setExecutor(new deleteKitCommand());
+        getCommand("deletekit").setTabCompleter(new deleteKitCommand());
         Bukkit.getPluginManager().registerEvents(new GUIListeners(), this);
         log("Plugin enabled successfully.");
     }

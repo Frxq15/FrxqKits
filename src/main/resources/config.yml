@@ -10,6 +10,7 @@ KIT_ON_COOLDOWN: "&f[&dKits&f] &7This kit is on cooldown for another &d%cooldown
 KIT_PURCHASED: "&f[&dKits&f] &7You purchased the &d%kit% &7kit for &d$%cost%&7."
 CANNOT_AFFORD_KIT: "&f[&dKits&f] &7You need &d$%cost% &7to purchase this kit."
 INVALID_NUMBER_SPECIFIED: "&f[&dKits&f] &7Please enter a valid number."
+KIT_DELETED: "&f[&dKits&f] &7You deleted the kit &d%kit%&7."
 
 
 ADD_KIT_COMMAND: "lp user %player% permission set frxqkits.kit.%kit% true"
