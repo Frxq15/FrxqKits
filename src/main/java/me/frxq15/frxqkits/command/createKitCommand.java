@@ -47,6 +47,7 @@ public class createKitCommand implements CommandExecutor {
             FileConfiguration file = FrxqKits.getInstance().getFileManager().getKitsFile();
             file.set(kit.toUpperCase() + ".COOLDOWN", cooldown);
             file.set(kit.toUpperCase() + ".GIVE_BY_SLOT", false);
+            file.set(kit.toUpperCase() + ".AUTO_APPLY_ARMOUR", true);
             Map<Integer, ItemStack> items = new HashMap<>();
             Inventory inventory = p.getInventory();
 
@@ -59,6 +60,18 @@ public class createKitCommand implements CommandExecutor {
             items.forEach((slot, item) -> {
                 file.set(kit.toUpperCase()+".ITEMS."+slot, item);
             });
+            if(p.getInventory().getHelmet().getType() != null) {
+                file.set(kit.toUpperCase()+".HELMET", p.getInventory().getHelmet());
+            }
+            if(p.getInventory().getChestplate().getType() != null) {
+                file.set(kit.toUpperCase()+".CHESTPLATE", p.getInventory().getChestplate());
+            }
+            if(p.getInventory().getLeggings().getType() != null) {
+                file.set(kit.toUpperCase()+".LEGGINGS", p.getInventory().getLeggings());
+            }
+            if(p.getInventory().getBoots().getType() != null) {
+                file.set(kit.toUpperCase()+".BOOTS", p.getInventory().getBoots());
+            }
             FrxqKits.getInstance().getFileManager().saveKitsFile();
             p.sendMessage(FrxqKits.formatMsg("KIT_CREATED").replace("%kit%", kit).replace("%cooldown%", cooldown+""));
             return true;
