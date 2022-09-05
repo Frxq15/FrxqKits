@@ -64,12 +64,33 @@ public class kitCommand implements CommandExecutor, TabCompleter {
                     });
                 }
                 if(file.getBoolean(kit.toUpperCase()+".AUTO_APPLY_ARMOUR")) {
-                    Bukkit.broadcastMessage("auto armor enabled");
+                    if(p.getInventory().getHelmet() != null) {
+                        p.getInventory().addItem(file.getItemStack(kit.toUpperCase()+".HELMET"));
+                    }
+                    if(p.getInventory().getChestplate() != null) {
+                        p.getInventory().addItem(file.getItemStack(kit.toUpperCase()+".CHESTPLATE"));
+                    }
+                    if(p.getInventory().getLeggings() != null) {
+                        p.getInventory().addItem(file.getItemStack(kit.toUpperCase()+".LEGGINGS"));
+                    }
+                    if(p.getInventory().getBoots() != null) {
+                        p.getInventory().addItem(file.getItemStack(kit.toUpperCase()+".BOOTS"));
+                    }
+                    if(p.getInventory().getHelmet() == null) {
                         p.getInventory().setHelmet(file.getItemStack(kit.toUpperCase()+".HELMET"));
+                    }
+                    if(p.getInventory().getChestplate() == null) {
                         p.getInventory().setChestplate(file.getItemStack(kit.toUpperCase()+".CHESTPLATE"));
+                    }
+                    if(p.getInventory().getLeggings() == null) {
                         p.getInventory().setLeggings(file.getItemStack(kit.toUpperCase()+".LEGGINGS"));
+                    }
+                    if(p.getInventory().getBoots() == null) {
                         p.getInventory().setBoots(file.getItemStack(kit.toUpperCase()+".BOOTS"));
+                    }
                 }
+                s.sendMessage(FrxqKits.formatMsg("KIT_GIVEN")
+                        .replace("%kit%", kit.substring(0, 1).toUpperCase() + kit.substring(1)).replace("%player%", p.getName()));
                 return true;
             }
             if(file.getConfigurationSection(kit.toUpperCase()+".ITEMS") != null) {
@@ -79,10 +100,30 @@ public class kitCommand implements CommandExecutor, TabCompleter {
                 });
             }
             if(file.getBoolean(kit.toUpperCase()+".AUTO_APPLY_ARMOUR")) {
-                p.getInventory().setHelmet(file.getItemStack(kit.toUpperCase()+".HELMET"));
-                p.getInventory().setChestplate(file.getItemStack(kit.toUpperCase()+".CHESTPLATE"));
-                p.getInventory().setLeggings(file.getItemStack(kit.toUpperCase()+".LEGGINGS"));
-                p.getInventory().setBoots(file.getItemStack(kit.toUpperCase()+".BOOTS"));
+                if(p.getInventory().getHelmet() != null) {
+                    p.getInventory().addItem(file.getItemStack(kit.toUpperCase()+".HELMET"));
+                }
+                if(p.getInventory().getChestplate() != null) {
+                    p.getInventory().addItem(file.getItemStack(kit.toUpperCase()+".CHESTPLATE"));
+                }
+                if(p.getInventory().getLeggings() != null) {
+                    p.getInventory().addItem(file.getItemStack(kit.toUpperCase()+".LEGGINGS"));
+                }
+                if(p.getInventory().getBoots() != null) {
+                    p.getInventory().addItem(file.getItemStack(kit.toUpperCase()+".BOOTS"));
+                }
+                if(p.getInventory().getHelmet() == null) {
+                    p.getInventory().setHelmet(file.getItemStack(kit.toUpperCase()+".HELMET"));
+                }
+                if(p.getInventory().getChestplate() == null) {
+                    p.getInventory().setChestplate(file.getItemStack(kit.toUpperCase()+".CHESTPLATE"));
+                }
+                if(p.getInventory().getLeggings() == null) {
+                    p.getInventory().setLeggings(file.getItemStack(kit.toUpperCase()+".LEGGINGS"));
+                }
+                if(p.getInventory().getBoots() == null) {
+                    p.getInventory().setBoots(file.getItemStack(kit.toUpperCase()+".BOOTS"));
+                }
             }
             s.sendMessage(FrxqKits.formatMsg("KIT_RECEIVED").replace("%kit%", kit.substring(0, 1).toUpperCase() + kit.substring(1)));
             return true;
@@ -104,12 +145,68 @@ public class kitCommand implements CommandExecutor, TabCompleter {
                     ItemStack item = file.getItemStack(kit.toUpperCase()+".ITEMS."+slot);
                     p.getInventory().setItem(Integer.valueOf(slot), item);
                 });
+                if(file.getBoolean(kit.toUpperCase()+".AUTO_APPLY_ARMOUR")) {
+                    if(p.getInventory().getHelmet() != null) {
+                        p.getInventory().addItem(file.getItemStack(kit.toUpperCase()+".HELMET"));
+                    }
+                    if(p.getInventory().getChestplate() != null) {
+                        p.getInventory().addItem(file.getItemStack(kit.toUpperCase()+".CHESTPLATE"));
+                    }
+                    if(p.getInventory().getLeggings() != null) {
+                        p.getInventory().addItem(file.getItemStack(kit.toUpperCase()+".LEGGINGS"));
+                    }
+                    if(p.getInventory().getBoots() != null) {
+                        p.getInventory().addItem(file.getItemStack(kit.toUpperCase()+".BOOTS"));
+                    }
+                    if(p.getInventory().getHelmet() == null) {
+                        p.getInventory().setHelmet(file.getItemStack(kit.toUpperCase()+".HELMET"));
+                    }
+                    if(p.getInventory().getChestplate() == null) {
+                        p.getInventory().setChestplate(file.getItemStack(kit.toUpperCase()+".CHESTPLATE"));
+                    }
+                    if(p.getInventory().getLeggings() == null) {
+                        p.getInventory().setLeggings(file.getItemStack(kit.toUpperCase()+".LEGGINGS"));
+                    }
+                    if(p.getInventory().getBoots() == null) {
+                        p.getInventory().setBoots(file.getItemStack(kit.toUpperCase()+".BOOTS"));
+                    }
+                }
+                s.sendMessage(FrxqKits.formatMsg("KIT_GIVEN")
+                        .replace("%kit%", kit.substring(0, 1).toUpperCase() + kit.substring(1)).replace("%player%", p.getName()));
                 return true;
             }
-            file.getConfigurationSection(kit.toUpperCase()+".ITEMS").getKeys(false).forEach(slot -> {
-                ItemStack item = file.getItemStack(kit.toUpperCase()+".ITEMS."+slot);
-                p.getInventory().addItem(item);
-            });
+            if(file.getConfigurationSection(kit.toUpperCase()+".ITEMS") != null) {
+                file.getConfigurationSection(kit.toUpperCase() + ".ITEMS").getKeys(false).forEach(slot -> {
+                    ItemStack item = file.getItemStack(kit.toUpperCase() + ".ITEMS." + slot);
+                    p.getInventory().addItem(item);
+                });
+            }
+            if(file.getBoolean(kit.toUpperCase()+".AUTO_APPLY_ARMOUR")) {
+                if(p.getInventory().getHelmet() != null) {
+                    p.getInventory().addItem(file.getItemStack(kit.toUpperCase()+".HELMET"));
+                }
+                if(p.getInventory().getChestplate() != null) {
+                    p.getInventory().addItem(file.getItemStack(kit.toUpperCase()+".CHESTPLATE"));
+                }
+                if(p.getInventory().getLeggings() != null) {
+                    p.getInventory().addItem(file.getItemStack(kit.toUpperCase()+".LEGGINGS"));
+                }
+                if(p.getInventory().getBoots() != null) {
+                    p.getInventory().addItem(file.getItemStack(kit.toUpperCase()+".BOOTS"));
+                }
+                if(p.getInventory().getHelmet() == null) {
+                    p.getInventory().setHelmet(file.getItemStack(kit.toUpperCase()+".HELMET"));
+                }
+                if(p.getInventory().getChestplate() == null) {
+                    p.getInventory().setChestplate(file.getItemStack(kit.toUpperCase()+".CHESTPLATE"));
+                }
+                if(p.getInventory().getLeggings() == null) {
+                    p.getInventory().setLeggings(file.getItemStack(kit.toUpperCase()+".LEGGINGS"));
+                }
+                if(p.getInventory().getBoots() == null) {
+                    p.getInventory().setBoots(file.getItemStack(kit.toUpperCase()+".BOOTS"));
+                }
+            }
             s.sendMessage(FrxqKits.formatMsg("KIT_GIVEN")
                     .replace("%kit%", kit.substring(0, 1).toUpperCase() + kit.substring(1)).replace("%player%", p.getName()));
             return true;
